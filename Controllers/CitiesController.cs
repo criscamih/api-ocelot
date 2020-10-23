@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -21,16 +22,23 @@ namespace api_ocelot.Controllers
         {
             _logger = logger;
         }
-                [HttpGet]
-        public IEnumerable<Cities> Get()
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<IEnumerable<Cities>> Get()
         {
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new Cities
+            var sums = Enumerable.Range(1, 5).Select(index => new Cities
             {
                 Date = DateTime.Now.AddDays(index),
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+
+            if(sums is null){
+               return NotFound(); 
+            }
+            return Ok(sums);
         }
     }
 }
