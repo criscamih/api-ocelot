@@ -1,0 +1,27 @@
+{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/weatherforecast",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5001
+                }
+            ],
+            "UpstreamPathTemplate": "/api/weather",
+            "UpstreamHttpMethod": [
+                "Get"
+            ]
+        }
+    ],
+    "GlobalConfiguration": {
+        "BaseUrl": "https://localhost:5021",
+        "RequestIdKey": "OcRequestId",
+        "RateLimitOptions": {
+            "ClientIdHeader": "client_id",
+            "QuotaExceededMessage": "Too Many Requests!!!",
+            "DisableRateLimitHeaders": false
+          }
+    }
+}

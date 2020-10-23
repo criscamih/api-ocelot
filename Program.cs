@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace api_ocelot
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
@@ -20,7 +20,12 @@ namespace api_ocelot
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENV");
                     webBuilder.UseStartup<Startup>();
-                });
+                    webBuilder.ConfigureAppConfiguration(config => {
+                        config.AddJsonFile($"ocelot.{env}.json");
+                    });
+                })
+                .ConfigureLogging(loggig => loggig.AddConsole());
     }
 }
