@@ -5,5 +5,9 @@
     <RootNamespace>api_ocelot</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Ocelot" Version="16.0.1" />
+  </ItemGroup>
+
 
 </Project>
